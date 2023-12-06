@@ -1,0 +1,16 @@
+[
+    {
+        "id": "a3e32f19-58d2-4dcc-81f9-de85cf063630",
+        "title": "Transport to iCET",
+        "amount": 250.00,
+        "date": "2023-12-01 00:05:32.914621",
+        "category": "travel"
+    },
+    {
+        "id": "a3e32f19-58d2-4dcc-81f9-de85cf063631",
+        "title": "Lunch",
+        "amount": 250.00,
+        "date": "2023-12-01 00:05:32.914621",
+        "category": "food"
+    }
+]
