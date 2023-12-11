@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 enum Category { food, travel, leisure, work }
 
@@ -41,8 +41,8 @@ class Expense {
     }
   }
 
-  Expense.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+  Expense.fromJson(Map<String, dynamic> json):
+        id = json['id'],
         title = json['title'],
         amount = json['amount'],
         date = DateTime.parse(json['date']),

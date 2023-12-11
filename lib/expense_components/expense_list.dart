@@ -1,4 +1,4 @@
-import 'package:expense_tracker_app/expense_components/expense_item.dart';
+ import 'package:expense_tracker_app/expense_components/expense_item.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +12,19 @@ class ExpensesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [...expenses.map((e) => ExpenseItem(e))],
-    );
+    // return Column(
+    //   children: [...expenses.map((e) => ExpenseItem(e))],
+    // );
 
     // #TODO - Try with ListView then
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
+        ...expenses.map((e) => ExpenseItem(e)),
+      ],
+    );
+
+
 
     // #TODO - Add ListView.builder
   }
