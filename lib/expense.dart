@@ -8,10 +8,6 @@ import 'expense_components/new_expense.dart';
 
 const filePath = 'assets/json/expense_data.json';
 
-
-
-
-
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
 
@@ -22,13 +18,9 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-
-
   List<Expense> expenses = [];
-  DateTime? _selectedDate=DateTime.now();
+  DateTime? _selectedDate = DateTime.now();
   final formatter = DateFormat.yMd();
-
-
 
   @override
   void initState() {
@@ -36,11 +28,9 @@ class _ExpensesState extends State<Expenses> {
     super.initState();
   }
 
-
   void _showDatePickerMain() async {
     DatePickerUtil datePickerUtil = DatePickerUtil();
     DateTime? pickedDate = await datePickerUtil.showDatePick(context);
-
 
     setState(() {
       _selectedDate = pickedDate;
@@ -58,20 +48,31 @@ class _ExpensesState extends State<Expenses> {
   }
 
   // #TODO - addExpense function to expense List and pass to NewExpense widget;
-  void addExpense(Expense expense){
+  void addExpense(Expense expense) {
     setState(() {
       expenses.add(expense);
     });
-
   }
 
   // #TODO - removeExpense function to expense List and pass to NewExpense widget;
-  void _removeExpense(Expense expense){
+  void _removeExpense(Expense expense) {
+    final expenseIndex=expenses.indexOf(expense);
     setState(() {
       expenses.remove(expense);
     });
-  }
 
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(seconds: 5),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        action: SnackBarAction(label: 'Undo',
+        onPressed: (){
+          setState(() {
+            expenses.insert(expenseIndex, expense);
+          });
+
+        },),
+        content: const Text('You have deleted an expense!')));
+  }
 
   void _openAddExpenseOverlay() {
     // #TODO - Add show bottom model
@@ -79,17 +80,12 @@ class _ExpensesState extends State<Expenses> {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      builder: (ctx)=> NewExpense(onAddExpense: addExpense),
-
+      builder: (ctx) => NewExpense(onAddExpense: addExpense),
     );
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter ExpenseTracker'),
@@ -106,15 +102,12 @@ class _ExpensesState extends State<Expenses> {
             onPressed: _openAddExpenseOverlay,
             icon: const Icon(Icons.add),
           ),
-
-     
         ],
-    
       ),
       body: Column(
-
         children: [
-          Expanded(child: ExpensesList(expenses: expenses,onRemoveExpense: _removeExpense,selectedDate: _selectedDate!)),
+          Expanded(child: ExpensesList(expenses: expenses,onRemoveExpense: _removeExpense,
+            selectedDate: _selectedDate ?? DateTime.now(),)),
         ],
       ),
     );
